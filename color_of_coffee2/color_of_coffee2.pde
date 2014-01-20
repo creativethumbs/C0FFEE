@@ -10,11 +10,11 @@ PFont font;
 void setup() 
 {
   frameRate(10);
-  font = loadFont("Minecraftia-30.vlw");
-  textFont(font, 20);
+  font = loadFont("Minecraftia-40.vlw");
+  textFont(font, 40);
   smooth();
   noStroke();
-  size(500, 500);
+  size(1500, 1500);
   float f = -(float) quadCount/2;
 
   for (int i = 0; i < quadCount; i++) { 
@@ -33,7 +33,7 @@ void draw() {
       quad.display();
     }
     fill(255);
-    text("#C0FFEE", -60, 220);
+    text("#C0FFEE", -110, 480);
 
     saveFrame("c0ffee-###.png");
     

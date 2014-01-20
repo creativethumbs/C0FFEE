@@ -11,6 +11,10 @@ class Quad {
   }
 
   void display () {
+    //for GIF POP version only
+    pushMatrix();
+    scale(2.0, 2.0);
+    
     pushMatrix();
     rotate(radians(90));
     
@@ -26,6 +30,8 @@ class Quad {
     popMatrix();
     
     angle+=dec;
+    popMatrix();
+    
     popMatrix();
   }
 }
