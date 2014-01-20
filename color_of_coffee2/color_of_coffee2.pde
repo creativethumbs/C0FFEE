@@ -1,7 +1,7 @@
 /* Credit to Golan Levin for the recording option */
 
-int nFramesInLoop = 160;
-int nElapsedFrames;
+int nFrames = 10;
+int nElapsedFrames = 0;
 int quadCount = 30;
 Quad[] quads = new Quad[quadCount];
 boolean bRecording;
@@ -9,6 +9,7 @@ PFont font;
 
 void setup() 
 {
+  frameRate(10);
   font = loadFont("Minecraftia-30.vlw");
   textFont(font, 20);
   smooth();
@@ -22,46 +23,25 @@ void setup()
   }
 }
 
-void keyPressed() {
-  bRecording = true;
-  nElapsedFrames = 0;
-}
-
 void draw() {
-  // Compute a percentage (0...1) representing where we are in the loop.
-  float percentCompleteFraction = 0; 
-  if (bRecording) {
-    percentCompleteFraction = (float) nElapsedFrames / (float)nFramesInLoop;
-  } 
-  else {
-    percentCompleteFraction = (float) (frameCount % nFramesInLoop) / (float)nFramesInLoop;
-  }
+  if (nElapsedFrames < nFrames) {
+    translate(width/2, height/2); 
+    background(#A32121);
 
-  // Render the design, based on that percentage. 
-  renderMyDesign (percentCompleteFraction);
-
-  fill(255);
-  //textSize(20);
-  text("#C0FFEE", -60, 220);
-
-  // If we're recording the output, save the frame to a file. 
-  if (bRecording) {
-    saveFrame("output/myname-loop-" + nf(nElapsedFrames, 4) + ".png");
-    nElapsedFrames++; 
-    if (nElapsedFrames >= nFramesInLoop) {
-      bRecording = false;
+    for (int i = 0; i < quadCount; i++) { 
+      Quad quad = (Quad) quads[i];
+      quad.display();
     }
+    fill(255);
+    text("#C0FFEE", -60, 220);
+
+    saveFrame("c0ffee-###.png");
+    
+    nElapsedFrames++;
   }
-}
-
-void renderMyDesign(float percent)
-{
-  translate(width/2, height/2); 
-  background(#A32121);
-
-  for (int i = 0; i < quadCount; i++) { 
-    Quad quad = (Quad) quads[i];
-    quad.display();
+  else {
+    noLoop();
+    exit();
   }
 }
 
